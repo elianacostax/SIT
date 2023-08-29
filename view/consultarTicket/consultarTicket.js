@@ -64,4 +64,9 @@ $(document).ready(function () {
 });
 
 
+function handleClick(tick_id){
+    console.log(tick_id)
+}
+
+
 init();
