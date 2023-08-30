@@ -12,7 +12,7 @@
                     header("Location:".conectar::ruta()."index.php?m=2");
 					exit();
                 }else{
-                    $sql = "SELECT * FROM tm_usuario WHERE usu_correo=? and usu_password=MD5(?) and usu_rol=? and usu_estado=1";
+                    $sql = "SELECT * FROM tm_usuario WHERE usu_correo=? and usu_password=? and usu_rol=? and usu_estado=1";
                     $stmt=$conectar->prepare($sql);
                     $stmt->bindValue(1, $correo);
                     $stmt->bindValue(2, $password);
