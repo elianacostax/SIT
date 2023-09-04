@@ -33,6 +33,54 @@
                 }
             }
         }
+
+        public function insert_usuario($usu_nombre,$usu_apellido,$usu_correo,$usu_password,$usu_rol){
+
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "INSERT INTO tm_usuario (usu_id, usu_nombre, usu_apellido, usu_correo, usu_password, usu_rol, usu_fechacreacion,usu_fechmodi, usu_fechelim usu_estado) VALUES (NULL, ?, ?, ?, ?, ?, now(),NULL,NULL, '1');";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_nombre);
+            $sql->bindValue(2, $usu_apellido);
+            $sql->bindValue(3, $usu_correo);
+            $sql->bindValue(4, $usu_password);
+            $sql->bindValue(5, $usu_rol);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
         
+        }
+
+        public function update_usuario(){
+        
+        }
+
+        public function delete_usuario($usu_id){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "UPDATE tm_usuario SET usu_estado = '0' WHERE usu_id =? ";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function get_usuario(){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "SELECT * FROM tm_usuario WHERE usu_estado = '1'";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function get_usuario_x_id($usu_id){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "SELECT * FROM tm_usuario WHERE usu_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
 ?>

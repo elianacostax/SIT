@@ -5,7 +5,8 @@
 //Ejecutar la funcion de summernote para la descripcion del ticktet.
 $(document).ready(function() {
     $('#tick_descrip').summernote({
-        height: 150
+        height: 150,
+        lang: "es-ES"
     });
 
     //Se importa el serivicio creado en el controller
@@ -24,16 +25,10 @@ function init(){
 function guardaryeditar(e){
     e.preventDefault();
     var formData = new FormData($("#ticket_form")[0]);
-   /*  if ($('#tick_descrip').summernote('isEmpty') || $('#tick_titulo').val()==''){
+    if ($('#tick_descrip').summernote('isEmpty') || $('#tick_titulo').val()==''){
         swal("Advertencia!", "Campos Vacios", "warning");
     }else{
-        var totalfiles = $('#fileElem').val().length;
-        for (var i = 0; i < totalfiles; i++) {
-            formData.append("files[]", $('#fileElem')[0].files[i]);
-        }
-    } */
-
-    //Se realiza el envio de la informacion
+        //Se realiza el envio de la informacion
     $.ajax({
         url: "../../controller/ticket.php?op=insert", 
         type: "POST",
@@ -48,6 +43,9 @@ function guardaryeditar(e){
             swal("Correcto!", "Registrado Correctamente", "success");
         }
         })
+    } 
+
+    
 }
 
 init();

@@ -4,7 +4,7 @@
         public function insert_ticket($usu_id, $cat_id,$tick_titulo,$tick_descrip ){
             $conectar=parent::conexion();
             parent::set_names();
-            $sql = "INSERT INTO tm_ticket (tick_id ,  usu_id ,  cat_id , tick_titulo, tick_descrip, tick_fechcrea, tick_estado) VALUES ( NULL, ? , ?, ?, ?,now(),'1');";
+            $sql = "INSERT INTO tm_ticket (tick_id ,  usu_id ,  cat_id , tick_titulo, tick_descrip, tick_est, tick_fechcrea,tick_estado) VALUES ( NULL, ? , ?, ?, ?, 'Abierto' ,now(),'1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $cat_id);
@@ -24,6 +24,7 @@
                 tm_ticket.cat_id,
                 tm_ticket.tick_titulo,
                 tm_ticket.tick_descrip,
+                tm_ticket.tick_est,
                 tm_ticket.tick_fechcrea,
                 tm_usuario.usu_nombre,
                 tm_usuario.usu_apellido,
@@ -41,6 +42,118 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function listar_ticket(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+                tm_ticket.tick_id,
+                tm_ticket.usu_id,
+                tm_ticket.cat_id,
+                tm_ticket.tick_titulo,
+                tm_ticket.tick_descrip,
+                tm_ticket.tick_est,
+                tm_ticket.tick_fechcrea,
+                tm_usuario.usu_nombre,
+                tm_usuario.usu_apellido,
+                tm_categoria.cat_nombre
+                FROM 
+                tm_ticket
+                INNER join tm_categoria on tm_ticket.cat_id = tm_categoria.cat_id
+                INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
+                WHERE
+                tm_ticket.tick_estado = 1";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
+        public function listar_ticketdetalle_x_ticket($tick_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+                td_ticketdetalle.tickd_id,
+                td_ticketdetalle.tickd_descrip,
+                td_ticketdetalle.fech_crea,
+                tm_usuario.usu_nombre,
+                tm_usuario.usu_apellido,
+                tm_usuario.usu_rol
+                FROM
+                td_ticketdetalle 
+                INNER join tm_usuario on td_ticketdetalle.usu_id = tm_usuario.usu_id
+                WHERE 
+                tick_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $tick_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function listar_ticket_x_id($tick_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+            tm_ticket.tick_id,
+            tm_ticket.usu_id,
+            tm_ticket.cat_id,
+            tm_ticket.tick_titulo,
+            tm_ticket.tick_descrip,
+            tm_ticket.tick_est,
+            tm_ticket.tick_fechcrea,
+            tm_usuario.usu_nombre,
+            tm_usuario.usu_apellido,
+            tm_usuario.usu_correo,
+            tm_categoria.cat_nombre
+            FROM 
+            tm_ticket
+            INNER join tm_categoria on tm_ticket.cat_id = tm_categoria.cat_id
+            INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
+            WHERE
+            tm_ticket.tick_estado = 1
+            AND tm_ticket.tick_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $tick_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function insert_ticketdetalle($tick_id, $usu_id, $tickd_descrip ){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "INSERT INTO td_ticketdetalle (tickd_id, tick_id, usu_id, tickd_descrip, fech_crea, est) VALUES (NULL, ?, ?, ?, now(), '1');";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $tick_id);
+            $sql->bindValue(2, $usu_id);
+            $sql->bindValue(3, $tickd_descrip);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function uptate_ticket($tick_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE 
+            tm_ticket 
+            SET 
+            tick_est = 'Cerrado'
+            WHERE
+            tick_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $tick_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function insert_ticketdetalle_cerrar($tick_id, $usu_id ){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "INSERT INTO td_ticketdetalle (tickd_id, tick_id, usu_id, tickd_descrip, fech_crea, est) VALUES (NULL, ?, ?, 'Ticket cerrado', now(), '1');";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $tick_id);
+            $sql->bindValue(2, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
-?>
+
+
+        
