@@ -6,9 +6,6 @@ $(document).ready(function () {
      //Añadir los valores dinamicamente a los campos
      listarDetalle(tick_id);
 
-   
-   
-
     //Inicializar textarea con la libreria summernote
     $('#tickd_descrip').summernote({
         height: 300,

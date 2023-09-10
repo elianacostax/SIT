@@ -36,18 +36,15 @@ if (isset($_SESSION["usu_id"])) {
         </header>
 
         <div class="box-typical box-typical-padding">
-          <table id="ticket_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+        <button type="button" id="btnnuevo" class="btn btn-inline btn-primary">Nuevo Registro</button>
+          <table id="usuario_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
             <thead>
               <tr>
-                <th style="width: 5%;">Nro.Ticket</th>
-                <th style="width: 15%;">Categoria</th>
-                <th class="d-none d-sm-table-cell" style="width: 20%;">Titulo</th>
-                <th class="d-none d-sm-table-cell" style="width: 5%;">Estado</th>
-                <th class="d-none d-sm-table-cell" style="width: 10%;">Fecha Creación</th>
-                <!-- <th class="d-none d-sm-table-cell" style="width: 5%;">Estado</th>
-                <th class="d-none d-sm-table-cell" style="width: 10%;">Fecha Creación</th>
-                <th class="d-none d-sm-table-cell" style="width: 10%;">Fecha Asignación</th>
-                <th class="d-none d-sm-table-cell" style="width: 10%;">Soporte</th> -->
+                <th style="width: 10%;">Nombre</th>
+                <th style="width: 10%;">Apellido</th>
+                <th class="d-none d-sm-table-cell" style="width: 40%;">Correo</th>
+                <th class="d-none d-sm-table-cell" style="width: 10%;">Rol</th>
+                <th class="d-none d-sm-table-cell" style="width: 5%;"></th>
                 <th class="text-center" style="width: 5%;"></th>
               </tr>
             </thead>
@@ -61,9 +58,11 @@ if (isset($_SESSION["usu_id"])) {
       </div>
     </div>
 
+    <?php require_once("modalgestion.php");?>
+
     <?php require_once("../mainJs/js.php"); ?>
 
-    <script type="text/javascript" src="consultarTicket.js"></script>
+    <script type="text/javascript" src="gestionUsuarios.js"></script>
   </body>
 
   </html>

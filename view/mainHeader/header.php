@@ -3,7 +3,7 @@
 
         <a href="#" class="site-logo">
             <img class="hidden-md-down" src="../../public/img/Imagen2.png" alt="">
-            <img class="hidden-lg-up" src="../../public/img/logo-2-mob.png" alt="">
+            <img class="hidden-lg-up" src="../../public/img/Imagen2.png" alt="">
         </a>
 
         <button id="show-hide-sidebar-toggle" class="show-hide-sidebar">

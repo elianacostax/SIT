@@ -6,19 +6,21 @@ require_once("../models/Ticket.php");
 
 $ticket = new Ticket();
 
+
+
 switch ($_GET["op"]) {
 
-        //Ejecutar funcion de insertar nuevo ticket
+    //Ejecutar funcion de insertar nuevo ticket
     case "insert":
         $datos = $ticket->insert_ticket($_POST["usu_id"], $_POST["cat_id"], $_POST["tick_titulo"], $_POST["tick_descrip"]);
     break;
-
+    //Ejecutar funcion de actializar nuevo ticket
     case "update":
         $datos = $ticket->uptate_ticket($_POST["tick_id"]);
         $datos = $ticket->insert_ticketdetalle_cerrar($_POST["tick_id"], $_POST["usu_id"]);
     break;
 
-        //Ejecutar funcion de consultar tickets      
+    //Ejecutar funcion de consultar tickets por usuario  
     case "listar_x_usu":
         $datos = $ticket->listar_ticket_x_usu($_POST["usu_id"]);
         $data = array();
@@ -47,7 +49,7 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
     break;
-
+     //Ejecutar funcion de monstrar tickets 
     case "listar":
         $datos = $ticket->listar_ticket();
         $data = array();
@@ -77,7 +79,7 @@ switch ($_GET["op"]) {
         echo json_encode($results);
 
     break;
-
+     //Ejecutar funcion de consultar los detalles del tickets 
     case "listardetalle":
         $datos = $ticket->listar_ticketdetalle_x_ticket($_POST["tick_id"]);
         ?>
@@ -124,7 +126,7 @@ switch ($_GET["op"]) {
 
             <?php
     break;
-
+    //Ejecutar funcion de mostrar los tickes por ID
     case "mostrar":
          $datos=$ticket->listar_ticket_x_id($_POST["tick_id"]);  
             if(is_array($datos)==true and count($datos)>0){
@@ -155,11 +157,52 @@ switch ($_GET["op"]) {
                 echo json_encode($output);
             }   
     break;
-    
+     //Ejecutar funcion de insertar detalle de los tickets
     case "insertdetalle":
             $datos = $ticket->insert_ticketdetalle($_POST["tick_id"], $_POST["usu_id"], $_POST["tickd_descrip"]);
     break;
 
+     //Ejecutar la funcion de consultar el total de tickets de un usuario
+     case "total":
+        $datos=$ticket->get_ticket_total();
+        
+        if(is_array($datos)==true and count($datos)>0){
+            foreach($datos as $row)
+            {
+                $output["TOTAL"] = $row["TOTAL"]; 
+            }
+            echo json_encode($output);
+        }   
+    break;
+    
+    case "totalabierto":
+        $datos=$ticket->get_ticket_totalabierto();
+        
+        if(is_array($datos)==true and count($datos)>0){
+            foreach($datos as $row)
+            {
+                $output["TOTAL"] = $row["TOTAL"]; 
+            }
+            echo json_encode($output);
+        }   
+    break;
+
+    case "totalcerrado":
+        $datos=$ticket->get_ticket_totalcerrado();
+        
+        if(is_array($datos)==true and count($datos)>0){
+            foreach($datos as $row)
+            {
+                $output["TOTAL"] = $row["TOTAL"]; 
+            }
+            echo json_encode($output);
+        }   
+    break;
+
+    case "grafico";
+            $datos=$ticket->get_ticket_grafico();  
+            echo json_encode($datos);
+        break;
 
 
 }
