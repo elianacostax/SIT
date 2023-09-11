@@ -99,6 +99,16 @@
             return $resultado=$sql->fetchAll();
         }
 
+        //Consultar  los usuarios por rol
+        public function get_usuario_x_rol(){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql = "SELECT * FROM tm_usuario WHERE usu_estado = '1' AND usu_rol = 2 ";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
         //Consultar un usuario en especifico por id.
         public function get_usuario_x_id($usu_id){
             $conectar=parent::conexion();

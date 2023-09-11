@@ -7,7 +7,7 @@ class Ticket extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "INSERT INTO tm_ticket (tick_id ,  usu_id ,  cat_id , tick_titulo, tick_descrip, tick_est, tick_fechcrea,tick_estado) VALUES ( NULL, ? , ?, ?, ?, 'Abierto' ,now(),'1');";
+        $sql = "INSERT INTO tm_ticket (tick_id ,  usu_id ,  cat_id , tick_titulo, tick_descrip, tick_est, tick_fechcrea, usu_asig, fech_asig, tick_estado) VALUES ( NULL, ? , ?, ?, ?, 'Abierto' ,now(),NULL,NULL,'1');";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $usu_id);
         $sql->bindValue(2, $cat_id);
@@ -29,6 +29,8 @@ class Ticket extends Conectar
             tm_ticket.tick_descrip,
             tm_ticket.tick_est,
             tm_ticket.tick_fechcrea,
+            tm_ticket.usu_asig,
+            tm_ticket.fech_asig,
             tm_usuario.usu_nombre,
             tm_usuario.usu_apellido,
             tm_categoria.cat_nombre
@@ -58,6 +60,8 @@ class Ticket extends Conectar
                 tm_ticket.tick_descrip,
                 tm_ticket.tick_est,
                 tm_ticket.tick_fechcrea,
+                tm_ticket.usu_asig,
+                tm_ticket.fech_asig,
                 tm_usuario.usu_nombre,
                 tm_usuario.usu_apellido,
                 tm_categoria.cat_nombre
@@ -151,6 +155,25 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
+
+    public function uptate_asignar($tick_id, $usu_asig)
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "UPDATE 
+            tm_ticket 
+            SET 
+            usu_asig = ?,
+            fech_asig = now()
+            WHERE
+            tick_id = ?";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $usu_asig);
+        $sql->bindValue(2, $tick_id);
+        $sql->execute();
+        return $resultado = $sql->fetchAll();
+    }
+
     //Insertar aviso de actualizacion de cierre de ticket en la table detalle.
     public function insert_ticketdetalle_cerrar($tick_id, $usu_id)
     {
