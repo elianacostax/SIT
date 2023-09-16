@@ -119,6 +119,7 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
         //Calcular total de tickets por usuario
         public function get_usuario_total_x_id($usu_id){
             $conectar=parent::conexion();
@@ -129,6 +130,7 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
         //Calcular total de tickets abiertos por usuario
         public function get_usuario_totalabierto_x_id($usu_id){
             $conectar=parent::conexion();
@@ -150,8 +152,8 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
-
+        
+        //Consultar los tickets para grafico.
         public function get_usuario_grafico($usu_id)
     {
         $conectar = parent::conexion();

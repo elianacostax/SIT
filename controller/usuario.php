@@ -71,7 +71,7 @@
                    echo json_encode($output);
                }   
         break;
-            //Ejecutar la funcion de consultar el total de tickets de un usuario
+        //Ejecutar la funcion de consultar el total de tickets de un usuario
         case "total":
             $datos=$usuario->get_usuario_total_x_id($_POST["usu_id"]);
             
@@ -83,7 +83,7 @@
                 echo json_encode($output);
             }   
         break;
-        
+        //Ejecutar la funcion de consultar el total de tickets abiertos de un usuario
         case "totalabierto":
             $datos=$usuario->get_usuario_totalabierto_x_id($_POST["usu_id"]);
             
@@ -95,7 +95,7 @@
                 echo json_encode($output);
             }   
         break;
-
+        //Ejecutar la funcion de consultar el total de tickets cerrados de un usuario
         case "totalcerrado":
             $datos=$usuario->get_usuario_totalcerrado_x_id($_POST["usu_id"]);
             
@@ -107,22 +107,22 @@
                 echo json_encode($output);
             }   
         break;
-
+        //Ejecutar la funcion de visualizacion de grafico total de un usuario
         case "grafico";
             $datos=$usuario->get_usuario_grafico($_POST["usu_id"]);  
             echo json_encode($datos);
         break;
-
+        //Ejecutar la funcion para asignar soporte a un ticket.
         case "combo";
-        $datos=$usuario->get_usuario_x_rol();
-        if(is_array($datos)==true and count($datos)>0){
-            $html.= "<option label='Seleccionar'></option>";
-            foreach($datos as $row)
-            {
-                $html.= "<option value='".$row['usu_id']."'>".$row['usu_nombre']."</option>";
+            $datos=$usuario->get_usuario_x_rol();
+            if(is_array($datos)==true and count($datos)>0){
+                $html.= "<option label='Seleccionar'></option>";
+                foreach($datos as $row)
+                {
+                    $html.= "<option value='".$row['usu_id']."'>".$row['usu_nombre']."</option>";
+                }
+                echo $html;
             }
-            echo $html;
-        }
         break;
     }
 

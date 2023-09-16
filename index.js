@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 $(document).on("click", "#btnsoporte", function(){
-
+    //Gestion de formulario para loguin, cambio de rol
     if ($('#usu_rol').val()== 1) {
         $('#lbltitulo').html("Acceso Soporte");
         $('#btnsoporte').html("Acceso Usuario");

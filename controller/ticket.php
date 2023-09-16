@@ -23,11 +23,10 @@ switch ($_GET["op"]) {
         $datos = $ticket->uptate_ticket($_POST["tick_id"]);
         $datos = $ticket->insert_ticketdetalle_cerrar($_POST["tick_id"], $_POST["usu_id"]);
     break;
-
+    //Ejecitar funcion de asignar ticket a un soporte
     case "asignar":
         $datos = $ticket->uptate_asignar($_POST["tick_id"], $_POST["usu_asig"]);
     break;
-
     //Ejecutar funcion de consultar tickets por usuario  
     case "listar_x_usu":
         $datos = $ticket->listar_ticket_x_usu($_POST["usu_id"]);
@@ -207,7 +206,7 @@ switch ($_GET["op"]) {
             $datos = $ticket->insert_ticketdetalle($_POST["tick_id"], $_POST["usu_id"], $_POST["tickd_descrip"]);
     break;
 
-     //Ejecutar la funcion de consultar el total de tickets de un usuario
+     //Ejecutar la funcion de consultar el total de tickets 
      case "total":
         $datos=$ticket->get_ticket_total();
         
@@ -219,7 +218,7 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         }   
     break;
-    
+    //Ejecutar la funcion de consultar el total de tickets abiertos de todos los usuario
     case "totalabierto":
         $datos=$ticket->get_ticket_totalabierto();
         
@@ -231,7 +230,7 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         }   
     break;
-
+    //Ejecutar la funcion de consultar el total de tickets cerrados de todos los usuario
     case "totalcerrado":
         $datos=$ticket->get_ticket_totalcerrado();
         
@@ -243,7 +242,7 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         }   
     break;
-
+    //Ejecutar la funcion de visualizacion de grafico total
     case "grafico";
             $datos=$ticket->get_ticket_grafico();  
             echo json_encode($datos);

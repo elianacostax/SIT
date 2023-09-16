@@ -75,6 +75,7 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
+
     //Consultar el detalle de los tickets.
     public function listar_ticketdetalle_x_ticket($tick_id)
     {
@@ -97,6 +98,7 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
+
     //Consultar tickets especificos por ID.
     public function listar_ticket_x_id($tick_id)
     {
@@ -126,6 +128,7 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
+
     //Crear detalle de ticket.
     public function insert_ticketdetalle($tick_id, $usu_id, $tickd_descrip)
     {
@@ -139,6 +142,7 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
+
     //Actualizar ticket.
     public function uptate_ticket($tick_id)
     {
@@ -186,8 +190,8 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-
-    //Calcular total de tickets para soporte
+    
+    //Consultar total de tickets para soporte
     public function get_ticket_total()
     {
         $conectar = parent::conexion();
@@ -197,7 +201,8 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-    //Calcular total de tickets abiertos para soporte
+
+    //Consultar total de tickets abiertos para soporte
     public function get_ticket_totalabierto()
     {
         $conectar = parent::conexion();
@@ -208,7 +213,7 @@ class Ticket extends Conectar
         return $resultado = $sql->fetchAll();
     }
 
-    //Calcular total de tickets cerrados para soporte
+    //Consultar total de tickets cerrados para soporte
     public function get_ticket_totalcerrado()
     {
         $conectar = parent::conexion();
@@ -218,7 +223,7 @@ class Ticket extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-
+    //Consultar total de tickets cerrados para el grafico
     public function get_ticket_grafico()
     {
         $conectar = parent::conexion();
